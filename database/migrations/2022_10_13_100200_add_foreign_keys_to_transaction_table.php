@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('role_user', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('role_id')->nullable()->index('fk_role_user_to_role');
-            $table->foreignId('user_id')->nullable()->index('fk_role_user_to_users');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('transaction', function (Blueprint $table) {
+            $table->foreign('appointment_id', 'fk_transaction_to_appointment')->references('id')
+                ->on('appointment')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -29,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_user');
+        Schema::table('transaction', function (Blueprint $table) {
+            $table->dropForeign('fk_transaction_to_appointment');
+        });
     }
 };
