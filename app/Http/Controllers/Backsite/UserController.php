@@ -10,7 +10,9 @@ use App\Models\ManagementAccess\Role;
 use App\Models\MasterData\TypeUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -25,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        // abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $user = User::orderBy('created_at', 'desc')->get();
         $type_user = TypeUser::orderBy('name', 'asc')->get();
@@ -82,7 +84,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        // abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $user->load('role');
 
@@ -97,7 +99,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $role = Role::all()->pluck('title', 'id');
         $type_user = TypeUser::orderBy('name', 'asc')->get();
@@ -141,7 +143,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        // abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $user->forceDelete();
 
