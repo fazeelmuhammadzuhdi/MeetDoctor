@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Operational\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class ReportAppointmentController extends Controller
 {
@@ -20,7 +22,7 @@ class ReportAppointmentController extends Controller
      */
     public function index()
     {
-        // abort_if(Gate::denies('appointment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('appointment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $type_user_condition = Auth::user()->detail_user->type_user_id;
 

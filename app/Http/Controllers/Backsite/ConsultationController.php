@@ -23,7 +23,7 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-        // abort_if(Gate::denies('consultation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('consultation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $consultation = Consultation::orderBy('created_at', 'desc')->get();
 
@@ -66,7 +66,7 @@ class ConsultationController extends Controller
      */
     public function show(Consultation $consultation)
     {
-        // abort_if(Gate::denies('consultation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('consultation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('pages.backsite.master-data.consultation.show', compact('consultation'));
     }
@@ -111,7 +111,7 @@ class ConsultationController extends Controller
      */
     public function destroy(Consultation $consultation)
     {
-        // abort_if(Gate::denies('consultation_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('consultation_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $consultation->forceDelete();
 

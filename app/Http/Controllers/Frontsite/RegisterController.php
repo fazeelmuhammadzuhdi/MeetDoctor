@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Backsite;
+namespace App\Http\Controllers\Frontsite;
 
 use App\Http\Controllers\Controller;
-use App\Models\Operational\Transaction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Symfony\Component\HttpFoundation\Response;
 
-class ReportTransactionController extends Controller
+class RegisterController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,19 +24,7 @@ class ReportTransactionController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('transaction_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $type_user_condition = Auth::user()->detail_user->type_user_id;
-
-        if ($type_user_condition == 1) {
-            // for admin
-            $transaction = Transaction::orderBy('created_at', 'desc')->get();
-        } else {
-            // other admin for doctor & patient ( task for everyone here )
-            $transaction = Transaction::orderBy('created_at', 'desc')->get();
-        }
-
-        return view('pages.backsite.operational.transaction.index', compact('transaction'));
+        return view('pages.frontsite.success.signup-success');
     }
 
     /**

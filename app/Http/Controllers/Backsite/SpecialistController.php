@@ -54,7 +54,7 @@ class SpecialistController extends Controller
 
         alert()->success('Success Message', 'Successfully Add New Specialist');
         // return redirect()->route('backsite.specialist.index');
-        // return to_route('backsite.specialist.index');
+        return to_route('backsite.specialist.index');
     }
 
     /**
@@ -96,7 +96,7 @@ class SpecialistController extends Controller
 
         alert()->success('Success Message', 'Successfully Update Specialist');
         // return redirect()->route('backsite.specialist.index');
-        // return to_route('backsite.specialist.index');
+        return to_route('backsite.specialist.index');
     }
 
     /**
@@ -116,7 +116,7 @@ class SpecialistController extends Controller
         alert()->success('Success Message', 'Successfully Update Specialist');
         // return redirect()->route('backsite.specialist.index');
         // return to_route('backsite.specialist.index');
-        // return back();
+        return back();
 
     }
 }
